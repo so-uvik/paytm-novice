@@ -77,8 +77,8 @@ packages:
     resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
 
-  bson@6.9.0:
-    resolution: {integrity: sha512-X9hJeyeM0//Fus+0pc5dSUMhhrrmWwQUtdavaQeF3Ta6m69matZkGWV/MrBcnwUeLC8W9kwwc2hfkZgUuCX3Ig==}
+  bson@6.10.0:
+    resolution: {integrity: sha512-ROchNosXMJD2cbQGm84KoP7vOGPO6/bOAW0veMMbzhXLqoZptcaYRVLitwvuhwhjjpU1qP4YZRWLhgETdgqUQw==}
     engines: {node: '>=16.20.1'}
 
   bytes@3.1.2:
@@ -488,7 +488,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  bson@6.9.0: {}
+  bson@6.10.0: {}
 
   bytes@3.1.2: {}
 
@@ -664,12 +664,12 @@ snapshots:
   mongodb@6.10.0:
     dependencies:
       '@mongodb-js/saslprep': 1.1.9
-      bson: 6.9.0
+      bson: 6.10.0
       mongodb-connection-string-url: 3.0.1
 
   mongoose@8.8.2:
     dependencies:
-      bson: 6.9.0
+      bson: 6.10.0
       kareem: 2.6.3
       mongodb: 6.10.0
       mpath: 0.9.0
