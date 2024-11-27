@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
-
+const jwt = require('jsonwebtoken')
+const { JWT_SECRET } = require('../config.js')
 const z = require("zod");
 const { User } = require("../db");
 const signupBody = z.object({
@@ -19,8 +20,10 @@ userRouter.post("/signup", async (req, res) => {
     username: req.body.username,
   });
   if (existingUser)
-    return res.status(411).json({ message: "email already exists, signin" });
+    return res.status(411).json({ message: "email already exists, signin instead" });
 
-  res.status(200).json({ message: "All good!" });
+  const token = await jwt.sign(req.body, JWT_SECRET);
+
+  res.status(200).json({ message: "User created successfully", token: token });
 });
 module.exports = userRouter;
