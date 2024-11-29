@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
+const { CONNECTION_STRING } = require("./config");
 
-mongoose.connect(
-  "mongodb+srv://souvik:4LiwH6z0CS77pKgI@cluster0.c6rtn.mongodb.net/",
-);
+mongoose.connect(CONNECTION_STRING);
 
 // User Schema
 const userSchema = new mongoose.Schema({

@@ -13,6 +13,11 @@ const signupBody = z.object({
   password: z.string().min(6).trim(),
 });
 
+const signinBody = z.object({
+  username: z.string().email().trim(),
+  password: z.string().min(6).trim(),
+});
+
 userRouter.post("/signup", async (req, res) => {
   const { success, error } = signupBody.safeParse(req.body);
   if (!success) return res.status(411).json({ message: error });
@@ -37,6 +42,28 @@ userRouter.post("/signup", async (req, res) => {
   const token = await jwt.sign({ userId }, JWT_SECRET);
 
   res.status(200).json({ message: "User created successfully", token: token });
+});
+
+userRouter.post("/signin", async (req, res) => {
+  const { success, error } = signinBody.safeParse(req.body);
+  if (!success) {
+    return res.status(411).json({ message: error });
+  }
+
+  const user = await User.findOne({
+    username: req.body.username,
+    password: req.body.password,
+  });
+  if (!user) {
+    return res
+      .status(411)
+      .json({ message: "User does not exist, signup instead" });
+  }
+
+  if (user) {
+    const token = await jwt.sign({ userId: user._id }, JWT_SECRET);
+    return res.json({ message: "Signin successful", token });
+  }
 });
 
 module.exports = userRouter;
