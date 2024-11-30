@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config.js");
 const z = require("zod");
 const { User } = require("../db");
+const { authMiddleware } = require("../middleware.js");
 
 const signupBody = z.object({
   username: z.string().max(30).trim(),
@@ -14,7 +15,7 @@ const signupBody = z.object({
 });
 
 const signinBody = z.object({
-  username: z.string().email().trim(),
+  username: z.string().trim(),
   password: z.string().min(6).trim(),
 });
 
@@ -44,7 +45,7 @@ userRouter.post("/signup", async (req, res) => {
   res.status(200).json({ message: "User created successfully", token: token });
 });
 
-userRouter.post("/signin", async (req, res) => {
+userRouter.post("/signin", authMiddleware, async (req, res) => {
   const { success, error } = signinBody.safeParse(req.body);
   if (!success) {
     return res.status(411).json({ message: error });
